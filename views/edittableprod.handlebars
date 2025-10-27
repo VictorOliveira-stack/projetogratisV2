@@ -1,0 +1,20 @@
+<h1>edit</h1>
+
+<form action="/updatetablesprod" method="post">
+
+    <input type="hidden" name="tablesname" value="{{tablesname}}" >
+    
+    <input type="hidden" name="id" value="{{data.id}}">
+
+                <span>produto</span>
+                <input type="text" name="produto" value="{{data.produto}}" >
+
+                <span>valor</span>
+                <input type="number" name="valor" value="{{data.valor}}">
+
+                <span>quantidade</span>
+                <input type="number" name="quantidade" value="{{data.quantidade}}">
+
+                <input type="submit" value="edit" >
+
+</form>

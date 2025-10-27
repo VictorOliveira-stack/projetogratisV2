@@ -1,0 +1,8 @@
+<h1>alter vendas</h1>
+<form action="/altertablevendas" method="post">
+
+    <input type="hidden" name="tablesname" value="{{tablesname}}"> 
+    <!--<input type="text" name="newNameTable" placeholder="New Name" required>-->
+    <input type="text" name="newNameTable" value="{{tablesname}}" required>
+    <input type="submit" name="Rename Table">
+</form>

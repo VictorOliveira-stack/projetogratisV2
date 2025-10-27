@@ -1,0 +1,110 @@
+
+.containercalculos{
+    background-image: radial-gradient(circle, rgba(104, 185, 104, 0.418), rgba(80, 194, 80, 0.418) ) ;
+    padding-top: 1em;
+    padding-bottom: 5em;
+    border-radius: 1em;
+    box-shadow: 1px 4px 15px black;
+    width: 100%;
+}
+
+.calculadoras{
+    
+    width: 8em;
+    margin-left: 3.5em;
+}
+
+.pcinza{
+    color: #33333369;
+}
+
+/* Seletor para input de número */
+input[type="number"] {
+    /* Esconde as setas no Firefox */
+    -moz-appearance: textfield;
+}
+
+/* Esconde as setas no Chrome, Safari, Edge, etc. (motores WebKit) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Remove a margem extra que as setas ocupavam */
+}
+input[type="number"] {
+    /* 1. Tamanho e Fontes */
+    width: 8em;
+    height: 1em;
+    padding: 10px 15px; /* Espaçamento interno */
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #333;
+
+    /* 2. Bordas e Formato */
+    border: 2px solid #ccc; /* Bordas suaves */
+    border-radius: 8px; /* Cantos arredondados */
+    outline: none; /* Remove o contorno azul/preto padrão ao focar */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Adiciona transição para um toque profissional */
+
+    /* 3. Fundo */
+    background-color: #f9f9f9;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.644);
+}
+
+/* 4. Estilo ao Focar (Muito importante para usabilidade!) */
+input[type="number"]:focus {
+    border-color: #007bff; /* Mudar cor da borda ao focar (ex: azul primário) */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Sombra suave ao redor */
+    background-color: #fff; /* Fundo branco ao focar */
+}
+
+.button{
+    background-image: radial-gradient(circle, rgba(105, 187, 95, 0.753), rgba(33, 187, 13, 0.781));
+    border-radius: 2em;
+    height: 2.5em;
+    color: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.644);
+}
+button {
+    /* Remove o estilo padrão nos navegadores */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Remove a borda padrão e cor de fundo */
+    border: none;
+    background: none; 
+    
+    /* Garante que o texto seja centralizado (se o botão tiver um tamanho fixo) */
+    text-align: center; 
+}
+
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 220px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* aparece acima do símbolo */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

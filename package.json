@@ -1,0 +1,23 @@
+{
+  "name": "managementproject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js localhost 9000"
+  },
+  "author": "Victor Oliveira Stack",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "connect-loki": "^1.2.0",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.1",
+    "express-session": "^1.18.2",
+    "nodemon": "^3.1.10",
+    "sqlite3": "^5.1.7",
+    "sqlite3-offline": "^4.3.1"
+  }
+}

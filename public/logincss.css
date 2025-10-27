@@ -1,0 +1,38 @@
+body{
+    background: #1B2A41;
+    color: antiquewhite;
+    /* color: #4C5C68; cola de cor para usar nesse projeto tambem*/
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    min-height: 100vh;      
+    margin: 0;   
+}
+
+.formlogin{
+    display: flex;
+    flex-direction: column;
+    width: 10em;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.formlogin input{
+   border: 1px solid #c5a30b;
+   border-radius: 3em;
+
+}
+.formlogin button {
+    background: radial-gradient( rgb(126, 224, 14), rgb(155, 240, 58), rgb(126, 224, 14)   ) ;
+    text-decoration: none;
+    border-radius: 10em;
+    color: rgb(255, 250, 243);
+    height: 2em;
+    box-shadow: none;
+    margin-top: 1.5em;
+    margin-left: 3.5em;
+    width: 5em;
+
+    
+}

@@ -1,0 +1,23 @@
+<h1>edit vendas</h1>
+
+<form action="/updatetablevendas" method="post">
+
+    <input type="hidden" name="tablesname" value="{{tablesname}}" >
+    
+    <input type="hidden" name="id" value="{{data.id}}">
+
+                <span>produto</span>
+                <input type="text" name="produto" value="{{data.produto}}" >
+
+                <span>valor</span>
+                <input type="number" name="valor" value="{{data.valor}}">
+
+                <span>quantidade</span>
+                <input type="number" name="quantidade" value="{{data.quantidade}}">
+
+                <span>data</span>
+                <input type="data" name="data_venda" value="{{data.data_venda}}" placeholder="data da venda" required>
+
+                <input type="submit" value="edit" >
+
+</form>

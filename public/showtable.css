@@ -1,0 +1,38 @@
+body{
+    
+}
+.table{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3em;
+    margin-left: 1em;
+    padding-left: 1em;
+
+    width: 50em;
+    background: rgb(148, 148, 248);
+    
+    max-height: 400px; /* Ou qualquer altura que você queira */
+  overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+  border: 1px solid #ccc; /* Adiciona uma borda para visualizar o contêiner */
+  padding: 10px;
+
+}
+.org{
+    
+    
+    display: flex;
+    gap: 5em;
+
+    
+}
+#btnss{
+    margin-left: 1em;
+}
+
+.btnshowtables{
+    
+    margin-top: 1em;
+    
+    gap: 0.5em;
+}
+

@@ -1,0 +1,922 @@
+<link rel="stylesheet" href="/public/caluculos.css">
+
+<h1>balanços</h1>
+
+
+<div class="containercalculos">
+    <h2>Indicadores de Rentabilidade</h2>
+    
+<div style="display: flex;">
+
+ 
+  <div class="calculadoras">
+     <h2>Lucro Líquido</h2>
+
+
+  <p class="pcinza">
+    Informe os dados financeiros da empresa para calcular margens, ponto de equilíbrio e outros indicadores.
+  </p>
+
+  <!-- Receita Total -->
+  <div>
+    <label for="receita">Receita Total (R$):</label>
+    <div style="display: flex; align-items: center;">
+      <input id="receita" type="number" placeholder="Ex: 10000">
+      <span class="tooltip">❓
+        
+        <span class="tooltip-text">
+          Valor total obtido com as vendas de produtos ou serviços antes de deduções, impostos e despesas.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Custos Variáveis -->
+  <div>
+    <label for="custosVariaveis">Custos Variáveis (R$):</label>
+    <div style="display: flex; align-items: center;">
+      <input id="custosVariaveis" type="number" placeholder="Ex: matéria-prima, comissões">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Custos que variam conforme a produção ou as vendas, como matéria-prima, comissões e transporte.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Custos Fixos -->
+  <div>
+    <label for="custosFixos">Custos Fixos (R$):</label>
+    <div style="display: flex; align-items: center;">
+      <input id="custosFixos" type="number" placeholder="Ex: aluguel, salários, energia elétrica">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Custos que não variam com o volume de produção, como aluguel, salários administrativos e serviços fixos.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Impostos / Outras Despesas -->
+  <div>
+    <label for="impostos">Impostos / Outras Despesas (R$):</label>
+    <div style="display: flex; align-items: center;">
+      <input id="impostos" type="number" placeholder="Ex: 1500">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Inclui impostos sobre vendas, taxas e outras despesas operacionais não fixas.
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <br>
+
+
+
+
+    <button class="button" onclick="calcularLucro()">Calcular Lucro Líquido</button>
+
+    <h3 id="resultadoLucro"></h3>
+
+    <script>
+      function calcularLucro() {
+        const receita = Number(document.getElementById("receita").value);
+        const custosVariaveis = Number(document.getElementById("custosVariaveis").value);
+        const custosFixos = Number(document.getElementById("custosFixos").value);
+        const impostos = Number(document.getElementById("impostos").value);
+
+        // calcular lucro líquido
+        const lucroLiquido = receita - (custosVariaveis + custosFixos + impostos);
+
+        // mostrar resultado
+        document.getElementById("resultadoLucro").innerHTML =
+          `💰 Lucro Líquido: <b>R$ ${lucroLiquido.toFixed(2)}</b>`;
+      }
+    </script>
+  </div>
+
+
+
+<div class="calculadoras">
+    <h2>Margem Liquida</h2>
+
+    <br><br>
+    <p class="pcinza">Quanto de lucro líquido a empresa gera para cada R$ 1,00 vendido.</p>
+    <div>
+        <!-- Campo: Lucro Líquido -->
+  <div>
+    <label for="lucroLiquidoML">Lucro Líquido</label>
+    <div style="display: flex; align-items: center;">
+      <input id="lucroLiquido" type="number" placeholder="Ex: 30000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Resultado final da empresa após deduzir todas as despesas, custos e impostos.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Campo: Receita Líquida -->
+  <div>
+    <label for="receitaLiquida">Receita Líquida</label>
+    <div style="display: flex; align-items: center;">
+      <input id="receitaLiquida" type="number" placeholder="Ex: 150000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Receita total de vendas após descontos, devoluções e impostos sobre vendas.
+        </span>
+      </span>
+    </div>
+  </div>
+
+
+
+        <div>
+            <input id="cem" type="hidden" value="100">
+        </div>
+        <br>
+        <button class="button" id="ML" onclick="ML()">Calcular ML</button>
+
+        <p id="resultado"></p>
+
+        <script>
+
+            function ML(){
+                //dividir lucroLiquido/receitaLiquida = resultado * cem
+                const lucroLiquido = Number(document.getElementById("lucroLiquido").value)
+                const receitaLiquida = Number(document.getElementById("receitaLiquida").value)
+                const cem = Number(document.getElementById("cem").value)
+
+                const dividir = (lucroLiquido / receitaLiquida) * cem
+                 //alert("Margem de Lucro: " + dividir + "%");
+
+                 document.getElementById("resultado").innerHTML = `<b>💰 Margem de lucro:  ${dividir.toFixed(2)} "%"</b>`
+
+                console.log(dividir)
+
+            }
+        </script>
+    </div>
+</div>
+
+<div class="calculadoras">
+    <h2>ROE</h2>
+
+    <br>
+
+    <p class="pcinza">Quão eficiente a empresa é em gerar lucro usando apenas o capital próprio (Retorno sobre o Patrimônio Líquido)</p>
+
+    <div>
+    <label for="lucroLiquido">Lucro Líquido</label>
+    <div style="display: flex; align-items: center;">
+      <input id="LucroLiquido" type="number" placeholder="Ex: 50000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          O lucro líquido é o resultado final da empresa após deduzir todas as despesas, impostos e custos.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Campo: Patrimônio Líquido -->
+  <div>
+    <label for="patrimonioLiquido">Patrimônio Líquido</label>
+    <div style="display: flex; align-items: center;">
+      <input id="PatrimonioLiquido" type="number" placeholder="Ex: 200000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Representa o capital próprio da empresa, formado pelos investimentos dos sócios mais lucros acumulados.
+        </span>
+      </span>
+    </div>
+  </div>
+
+    <div>
+        <input id="cem" type="hidden" value="100">
+    </div>
+
+            <br>
+    <button class="button" id="ML" onclick="ROE()">Calcular ROE</button> 
+
+    <p id="resultadoROE"></p>
+
+    <script>
+        function ROE(){
+            const LucroLiquido = Number(document.getElementById("LucroLiquido").value)
+            const PatrimonioLiquido = Number(document.getElementById("PatrimonioLiquido").value)
+            const cem = Number(document.getElementById("cem").value)
+
+            const dividir = (LucroLiquido / PatrimonioLiquido) *cem
+
+            document.getElementById("resultadoROE").innerHTML = ` <b> ROE:  ${dividir.toFixed(2)} % <b>`
+
+        }
+    </script>
+
+</div>
+
+<div class="calculadoras">
+    <h2>ROI</h2>
+    <br>
+    <p class="pcinza">O retorno gerado por um investimento específico, em relação ao custo desse investimento.</p>
+
+    
+  <!-- Campo: Ganho do investimento -->
+  <div>
+    <label for="ganhoInvestimento">Ganho do Investimento</label>
+    <div style="display: flex; align-items: center;">
+      <input id="GanhodoInvestimento" type="number" placeholder="Ex: 5000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Valor total recebido com o investimento. Exemplo: se você investiu R$2000 e recebeu R$5000, o ganho é 5000.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Campo: Custo do investimento -->
+  <div>
+    <label for="custoInvestimento">Custo do Investimento</label>
+    <div style="display: flex; align-items: center;">
+      <input id="CustodoInvestimento" type="number" placeholder="Ex: 2000">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Valor gasto para realizar o investimento. Exemplo: o custo inicial de R$2000 investidos em um projeto.
+        </span>
+      </span>
+    </div>
+  </div>
+
+    <div>
+        <input id="cem" type="hidden" value="100">
+    </div>
+        <br>
+    <button class="button" id="ML" onclick="ROI()">Calcular ROI</button>
+
+    <p id="resultadoROI"></p>
+
+    <script>
+        function ROI(){
+            const GanhodoInvestimento = Number(document.getElementById("GanhodoInvestimento").value)
+            const CustodoInvestimento = Number(document.getElementById("CustodoInvestimento").value)
+            const cem = Number(document.getElementById("cem").value)
+
+            const dividir = ((GanhodoInvestimento - CustodoInvestimento) / CustodoInvestimento) *cem
+
+            document.getElementById("resultadoROI").innerHTML = `<b> ROI:  ${dividir.toFixed(2)}% </b>`
+        }
+    </script>
+</div>
+
+
+
+ <div class="calculadoras">
+    <h2>Ponto de Equilíbrio</h2>
+    <p class="pcinza">O faturamento mínimo que a empresa precisa atingir para que a Receita seja igual aos Custos e Despesas Totais.</p>
+
+   
+  <!-- Preço de venda -->
+  <div>
+    <label for="precoVenda">Preço de Venda</label>
+    <div style="display: flex; align-items: center;">
+      <input id="precoVenda" type="number" placeholder="Preço de Venda">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Valor unitário de venda de cada produto ou serviço. Exemplo: se um item é vendido por R$100, insira 100.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Custo variável -->
+  <div>
+    <label for="custoVariavel">Custo Variável</label>
+    <div style="display: flex; align-items: center;">
+      <input id="custoVariavel" type="number" placeholder="Ex: 60 (matéria-prima, comissão)">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Custos que variam conforme a quantidade vendida, como matéria-prima, comissões e impostos sobre vendas.
+        </span>
+      </span>
+    </div>
+    <br>
+  </div>
+
+  <!-- Custos fixos -->
+  <div>
+    <label for="custosFixos">Custos Fixos</label>
+    <div style="display: flex; align-items: center;">
+      <input id="custosFixoss" type="number" placeholder="Ex: aluguel, internet, luz">
+      <span class="tooltip">❓
+        <span class="tooltip-text">
+          Despesas fixas que não mudam com as vendas, como aluguel, salários administrativos e contas básicas.
+        </span>
+      </span>
+    </div>
+  </div>
+        <br>
+    <button class="button" id="PEE" onclick="PE()">Calcular PE</button>
+
+    <p id="resultadoPE"></p>
+
+    <script>
+
+        function PE(){
+            const precoVenda = Number(document.getElementById("precoVenda").value)
+            const custoVariavel = Number(document.getElementById("custoVariavel").value)
+            const custosFixoss = Number(document.getElementById("custosFixoss").value)
+
+            const margemContribuicao =  (precoVenda - custoVariavel) / precoVenda
+
+            //calcula o ponto de equilibrio
+            const pontoEquilibrio = custosFixoss / margemContribuicao
+
+            const pontoEquilibrioUnidades = Math.ceil(custosFixoss / (precoVenda - custoVariavel))
+
+           document.getElementById("resultadoPE").innerHTML =
+        `<b>🧮 Ponto de Equilíbrio:
+        Valor (R$): ${pontoEquilibrio.toFixed(2)} <br>
+        Quantidade de unidades nescessasrias para cobrir os custos: ${pontoEquilibrioUnidades}</b>`;
+    
+
+        }
+    </script>
+ </div>
+
+
+
+</div>
+</div>
+
+<br><br>
+
+<div class="containercalculos">
+    <h1>Indicadores de Liquidez</h1>
+
+    <div style="display:flex;">
+
+     <div class="calculadoras">
+        <h2>Calcular Liquidez Corrente</h2>
+        <p class="pcinza">Capacidade de pagar as dívidas de curto prazo</p>
+
+         <!-- Ativo Circulante -->
+  <div>
+    <label for="ativoCirculanteLC">Ativo Circulante</label>
+    <div style="display: flex;">
+      <input id="AtivoCirculante" type="number" placeholder="Ativo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Recursos disponíveis ou que se tornarão dinheiro em até um ano — como caixa, aplicações e contas a receber.
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Passivo Circulante -->
+  <div>
+    <label for="passivoCirculanteLC">Passivo Circulante</label>
+    <div style="display: flex;">
+      <input id="PassivoCirculante" type="number" placeholder="Passivo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Dívidas e obrigações que devem ser pagas em até um ano — como fornecedores, salários e impostos.
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+        <br><br>
+
+        <button class="button" onclick="LiquidezCorrente()">Calcular Liquidez Corrente</button>
+
+        <p id="resultadoLiquidezCorrente"></p>
+        <p id="interpretacao"></p>
+
+     </div>
+
+        <script>
+            function LiquidezCorrente(){
+                const AtivoCirculante = Number(document.getElementById("AtivoCirculante").value)
+                const PassivoCirculante = Number(document.getElementById("PassivoCirculante").value)
+
+                const lc = AtivoCirculante / PassivoCirculante
+
+                let mensagem = ""
+
+                if( lc > 1 ){
+                    mensagem = "Saudável: A empresa tem mais Ativos Circulantes do que Passivos Circulantes. Capacidade de curto prazo é boa.";
+                }else if (lc === 1){
+                    mensagem = "Neutro: Os Ativos Circulantes são iguais aos Passivos Circulantes. A empresa cobre exatamente suas obrigações de curto prazo.";
+                }else {
+                    mensagem = "Preocupante: A empresa tem menos Ativos Circulantes do que Passivos Circulantes. Pode ter dificuldades em honrar suas obrigações de curto prazo.";
+                }
+                
+
+                document.getElementById("resultadoLiquidezCorrente").innerHTML = `<b>
+                    "Resultado"${lc.toFixed(3)}
+                </b>`
+
+                document.getElementById("interpretacao").innerHTML = `
+                "Interpretação:" ${mensagem}
+                `
+
+            }
+            
+
+
+
+
+
+        </script>
+
+
+
+        <div class="calculadoras">
+            <h1>Liquidez Seca</h1>
+            <p class="pcinza">Similar à Liquidez Corrente, mas exclui os Estoques (que nem sempre são fáceis de converter em dinheiro rapidamente).</p>
+
+            <!-- Ativo Circulante -->
+  <div>
+    <label for="ativoCirculanteLS">Ativo Circulante</label>
+    <div style="display: flex;">
+      <input id="ativoCirculanteLS" type="number" placeholder="Ativo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Recursos que podem ser convertidos em dinheiro em até um ano (caixa, contas a receber, aplicações etc.).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Estoque -->
+  <div>
+    <label for="estoqueLS">Estoque</label>
+    <div style="display: flex;">
+      <input id="estoqueLS" type="number" placeholder="Estoque">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Bens destinados à venda ou produção. São excluídos da fórmula por não terem liquidez imediata.
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Passivo Circulante -->
+  <div>
+    <label for="passivoCirculanteLS">Passivo Circulante</label>
+    <div style="display: flex;">
+      <input id="passivoCirculanteLS" type="number" placeholder="Passivo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Obrigações e dívidas que vencem em até um ano (curto prazo).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+            <br><br>
+
+            <button class="button" onclick="calcularLiquidezSeca()">Calcular Liquidez Seca</button>
+
+            <p id="resultadoLS"></p>
+            <p id="interpretacao2"></p>
+
+            <script>
+
+                /*const resultadoElement = document.getElementById("resultadoLS");
+                const interpretacaoElement = document.getElementById("interpretacao");
+
+                 resultadoElement.innerHTML = `<b>Resultado: ${ls.toFixed(2)}</b>`;
+                interpretacaoElement.innerHTML = `<b>Interpretação: ${mensagem}</b>`;*/
+
+        
+                function calcularLiquidezSeca(){
+
+                    const ativoCirculanteLS = Number(document.getElementById("ativoCirculanteLS").value)
+                    const estoqueLS = Number(document.getElementById("estoqueLS").value)
+                    const passivoCirculanteLS = Number(document.getElementById("passivoCirculanteLS").value)
+
+
+                    const ativoRapido = ativoCirculanteLS - estoqueLS
+
+                    if(ativoRapido < 0){
+                        document.getElementById("resultadoLS").innerHTML = `<b>Erro: Estoque (${estoqueLS.toFixed(2)}) é maior que Ativo Circulante (${ativoCirculanteLS.toFixed(2)}). Verifique os valores.</b>`;
+                        document.getElementById("interpretacao2").innerHTML = '';
+                        return
+                    }
+
+                    const ls = ativoRapido / passivoCirculanteLS
+
+                    let mensagem = ""
+
+                    if(ls > 1){
+                        mensagem = "Saudável: A empresa tem Ativos de Alta Liquidez suficientes para cobrir todas as suas dívidas de curto prazo.";
+                    }else if( ls === 1){
+                        mensagem = "Neutro: Os Ativos de Alta Liquidez cobrem exatamente as obrigações de curto prazo.";
+                    }else{
+                        mensagem = "Preocupante: A empresa depende da venda dos Estoques para cobrir suas dívidas de curto prazo.";
+                    }
+
+
+                    document.getElementById("resultadoLS").innerHTML = `<b> Resultado:  ${ls.toFixed(2)} </b>`
+                    document.getElementById("interpretacao2").innerHTML = `Interpretação:  ${mensagem}`
+
+                }
+
+            </script>
+
+        </div>
+
+
+        <div class="calculadoras">
+            <h1>Liquidez Imediata</h1>
+            <p class="pcinza">Capacidade de pagar as dívidas imediatas usando apenas o que está em caixa (ou equivalente).</p>
+
+            <!-- Disponível -->
+  <div>
+    <label for="disponivelLI">Disponível (Caixa + Bancos)</label>
+    <div style="display: flex;">
+      <input id="disponibilidadesLI" type="number" placeholder="Disponível (Caixa + Bancos)">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Valor disponível imediatamente: soma do dinheiro em caixa e saldos bancários.
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Passivo Circulante -->
+  <div>
+    <label for="passivoCirculanteLI">Passivo Circulante</label>
+    <div style="display: flex;">
+      <input id="passivoCirculanteLI" type="number" placeholder="Passivo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Dívidas e obrigações que vencem em até um ano (curto prazo).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+            <br><br>
+
+            <button class="button" onclick="LiquidezImediata()">calcular Liquidez Imediata</button>
+
+            <p id="resultadoLI"></p>
+            <i id="interpretação2"></i>
+
+            <script>
+
+                function LiquidezImediata(){
+
+                const disponibilidadesLI = Number(document.getElementById("disponibilidadesLI").value)
+                const passivoCirculanteLI = Number(document.getElementById("passivoCirculanteLI").value)
+
+                const li = disponibilidadesLI / passivoCirculanteLI
+
+                let mensagem = ""
+
+                if(li >= 1){
+                    mensagem = "Excelente: A empresa pode cobrir todas as suas dívidas de curto prazo imediatamente, usando apenas o caixa.";
+                } else if (li > 0.5 ){
+                    mensagem = "Aceitável: A empresa cobre uma boa parte de suas obrigações imediatas, mas dependerá de recebimentos para o restante.";
+                }else{
+                    mensagem = "Preocupante: A empresa tem pouquíssimo dinheiro disponível em caixa para cobrir suas obrigações imediatas. Risco de liquidez.";
+                }
+
+                document.getElementById("resultadoLI").innerHTML = `<b>Resultados: ${li.toFixed(2)}</b>`
+                document.getElementById("interpretação2").innerHTML = `${mensagem}`
+            }
+
+            </script>
+
+        </div>
+
+</div>
+</div>
+<br><br>
+
+<div class="containercalculos">
+    <h1>Indicadores de Endividamento e Estrutura</h1>
+
+     <div style="display:flex;"> 
+
+    <div class="calculadoras">
+        <h2>Grau de Endividamento</h2>
+        <p class="pcinza">Proporção de ativos financiados por capital de terceiros (dívidas).</p>
+
+       <div>
+    <label for="passivoTotalGE">Passivo Total</label>
+    <div style="display: flex;">
+      <input id="passivoTotal" type="number" placeholder="Passivo Total">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Soma de todas as obrigações da empresa (curto e longo prazo).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Ativo Total -->
+  <div>
+    <label for="ativoTotalGE">Ativo Total</label>
+    <div style="display: flex;">
+      <input id="ativoTotal" type="number" placeholder="Ativo Total">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Total de bens, direitos e recursos da empresa (curto e longo prazo).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+            <br><br>
+        <button class="button" onclick="calcularGE()">calcular</button>
+
+        <p id="resultadoGE"></p>
+        <p id="interpretacaoGE"></p>
+
+        <script>
+
+            function calcularGE(){
+                const passivoTotal = Number(document.getElementById("passivoTotal").value)
+                const ativoTotal = Number(document.getElementById("ativoTotal").value)
+
+                if( passivoTotal > ativoTotal){
+                    document.getElementById("resultadoGE").innerHTML = `<b>Atenção: Passivo Total (${passivoTotal.toFixed(2)}) é maior que Ativo Total (${ativoTotal.toFixed(2)}). O Patrimônio Líquido é negativo.</b>`
+                }
+
+                const ge = (passivoTotal / ativoTotal) *100
+                    document.getElementById("resultadoGE").innerHTML = `<b>Grau de Endividamento (GE): ${ge.toFixed(2)}%</b>`;
+
+                let mensagem = ""
+
+                if(ge > 70){
+                    mensagem = "Risco Alto: Mais de 70% dos ativos são financiados por terceiros. Alta dependência e vulnerabilidade.";
+                }else if(ge > 50){
+                    mensagem = "Alerta: Mais da metade dos ativos é financiada por dívidas. É essencial avaliar a capacidade de gerar caixa.";
+                }else if (ge > 30){
+                    mensagem = "Moderado: O endividamento é controlado e a maior parte do financiamento é próprio.";
+                }else{
+                    mensagem = "Baixo: Excelente posição de autonomia financeira, com baixa dependência de capital de terceiros.";
+                }
+
+                document.getElementById("interpretacaoGE").innerHTML = ` Interpretação: ${mensagem}`
+
+
+            }
+
+        </script>
+
+    </div>
+
+    
+    
+    <div class="calculadoras">
+            <h2>Composição do Endividamento</h2>
+            <p class="pcinza">Quanto da dívida total é de curto prazo (Passivo Circulante).</p>
+        
+
+       
+        <div>
+    <label for="passivoCirculante">Passivo Circulante</label>
+    <div style="display: flex;">
+      <input id="PassivoCirculante22" type="number" placeholder="Passivo Circulante">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Dívidas e obrigações que vencem em até um ano (ex: fornecedores, empréstimos de curto prazo).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+        <div>
+    <label for="passivoTotal">Passivo Total</label>
+    <div style="display: flex;">
+      <input id="passivoTotal22" type="number" placeholder="Passivo Total">
+      <p>
+        <span class="tooltip">❓
+          <span class="tooltip-text">
+            Soma do passivo circulante e não circulante (todas as dívidas da empresa).
+          </span>
+        </span>
+      </p>
+    </div>
+  </div>
+
+         <br><br>
+     <button class="button" onclick="calcularComposicaoEndividamento()">Composição do Endividamento</button>
+    
+        <p id="composicao"></p>
+        <p id="analiseComposicaoEndividamento"></p>
+    
+    <script>
+
+        function calcularComposicaoEndividamento(){
+
+            const PassivoCirculante22 = Number(document.getElementById("PassivoCirculante22").value)
+            const passivoTotal22 = Number(document.getElementById("passivoTotal22").value)
+
+            const ComposicaoEndividamento = PassivoCirculante22 / passivoTotal22
+
+            const percentual = ComposicaoEndividamento *100
+
+            document.getElementById("composicao").innerHTML = 
+            `<b>${percentual.toFixed(2)}%</b>`
+
+            let mensagem = ""
+
+            if(percentual > 70){
+                mensagem = "Risco Alto: Mais de 70% das dívidas vencem no curto prazo. Alta dependência e vulnerabilidade financeira.";
+
+            }else if (percentual > 50){
+                mensagem = "Alerta: Mais da metade das dívidas é de curto prazo. Atenção ao fluxo de caixa e refinanciamentos.";
+            }else if(percentual > 30){
+                mensagem = "Moderado: O endividamento é equilibrado entre curto e longo prazo. Estrutura estável.";
+            }else{
+                mensagem = "Baixo: Excelente estrutura de capital, com pouca pressão de dívidas imediatas.";
+            }
+
+            document.getElementById("analiseComposicaoEndividamento").innerHTML = 
+            `<b>${mensagem}</b>`
+
+        }
+
+    </script>
+
+    </div>
+
+    <div class="calculadoras">
+            <h2>Composição do Endividamento</h2>
+            <p class="pcinza">Quanto da dívida total é de curto prazo (Passivo Circulante).</p>
+        
+
+       
+        <div>
+         <label for="Divida Bruta"> Divida Bruta</label><br>
+            <div style="display: flex;">
+                <input id="dividaBruta" type="number" placeholder="Divida Bruta">
+                    <p>
+                        <span class="tooltip">❓
+                         <span class="tooltip-text">
+                         Total das dívidas (empréstimos, financiamentos, debêntures etc.)
+                        </span>
+                        </span>
+                    </p>
+            
+            </div>
+
+        </div>
+
+        <div>
+            <label for="Caixa">Caixa</label><br>
+         <div style="display: flex;">
+            
+            <input id="caixa" type="number" placeholder="Caixa">
+                    <p>
+                        <span class="tooltip">❓
+                         <span class="tooltip-text">
+                         Valor em caixa e equivalentes de caixa (dinheiro disponível)
+                        </span>
+                        </span>
+                    </p>
+
+         </div>
+        </div>
+
+        <div>
+            <label for="EBITDA">EBITDA</label>
+            <div style="display: flex;">
+               <input id="EBITDA" type="number" placeholder="EBITDA">
+                    <p>
+                        <span class="tooltip">❓
+                         <span class="tooltip-text">
+                         Mede quantos anos seriam necessários para pagar a dívida líquida usando o lucro operacional (EBITDA).
+                        </span>
+                        </span>
+                    </p>
+            </div>
+
+            
+                        
+                    
+        </div>
+
+         <br><br>
+     <button class="button" onclick="calcularEBITDA()">Composição do Endividamento</button>
+    
+        <p id="resultadoEBITDA"></p>
+        <p id="analiseEBITDA"></p>
+    
+    <script>
+        function calcularEBITDA(){
+
+            const dividaBruta = Number(document.getElementById("dividaBruta").value)
+            const caixa = Number(document.getElementById("caixa").value)
+            const EBITDA = Number(document.getElementById("EBITDA").value)
+
+            const dividaLuiquida = dividaBruta - caixa
+            const resultado = dividaLuiquida / EBITDA
+
+            document.getElementById("resultadoEBITDA").innerHTML = `<b>${resultado.toFixed(2)}</b>`
+
+            let mensagem = ""
+
+            if(resultado > 5 ){
+                mensagem = "Risco Alto: A empresa levaria mais de 5 anos de lucro operacional para quitar sua dívida líquida.";
+            }else if(resultado > 3){
+                 mensagem = "Alerta: Endividamento elevado. Avaliar a geração de caixa e necessidade de capital.";
+            }else if(resultado >3){
+                 mensagem = "Moderado: Endividamento controlado, mas requer acompanhamento.";
+            }else{
+                mensagem = "Saudável: Boa estrutura financeira e baixa alavancagem.";
+
+            }
+
+            document.getElementById("analiseEBITDA").innerHTML = mensagem
+
+        }
+        
+    </script>
+
+    </div>
+
+   
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<!-- <div class="containercalculos">
+    <div class="calculadoras">
+        <h1></h1>
+        <p class="pcinza"></p>
+
+        <div>
+         <label for=""></label><br>
+            <input id="" type="number" >
+        </div>
+            <br><br>
+        <div>
+            <label for=""></label><br>
+            <input id="" type="number" >
+        </div>
+            <br><br>
+        <button class="button" onclick="">calcular</button>
+
+    </div>
+</div>-->
+
+
+<!--<div>
+    <p></p>
+    <p></p>
+
+    <div>
+        <label for=""></label>
+        <input id="" type="number" >
+    </div>
+    <div>
+        <label for=""></label>
+        <input id="" type="number" >
+    </div>
+    <div>
+        <input id="cem" type="hidden" value="100">
+    </div>
+
+    <button id="ML" onclick="ML()">ver</button>
+
+    <p id="resultado"></p>
+</div>-->
+
+
+  
