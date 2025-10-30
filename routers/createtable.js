@@ -22,6 +22,7 @@ router.get('/alltables', isAuthenticated, (req, res) => {
     const successMessage = req.query.success === 'true' ? 'Tabela criada com sucesso!' : null;
     const errorMessage = req.query.error ? 'Erro: ' + req.query.error : null;
 
+    
     dbProd.all("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY ROWID DESC", (err, tables) => {
         if (err) {
             console.error('Erro ao buscar as tabelas:', err.message);
@@ -64,6 +65,7 @@ router.get('/alltables', isAuthenticated, (req, res) => {
 });
 //aqui é importante
 //aqui é onde exibe todas as tabelas juntas 
+
 
 
 
@@ -129,6 +131,18 @@ router.post('/creatingtable', isAuthenticated, (req, res) => {
         return res.redirect('/createtable?error=invalid_name');
     }
 
+
+    //adicionei
+        //ativa a foreign key
+    dbProd.all("PRAGMA foreign_keys = ON;", (err) => {
+        if (err) {
+            console.error("Erro ao ativar Foreign Keys:", err.message);
+        } else {
+            console.log("Suporte a Foreign Keys ativado.");
+        }
+    });
+
+
     
     dbProd.run(`CREATE TABLE IF NOT EXISTS "${sanitizedTablesName}" (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -145,6 +159,7 @@ router.post('/creatingtable', isAuthenticated, (req, res) => {
         console.log(`Tabela '${sanitizedTablesName}' criada ou já existe.`);
         res.redirect('/createtable?success=true');
     });
+    
 });
 
 //deletar a table

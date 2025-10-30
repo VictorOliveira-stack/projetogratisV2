@@ -63,6 +63,8 @@ router.get('/vendas', isAuthenticated, (req, res) => {
     });
 });
 
+
+
 //rota para criar a tabela de vendas por nome
 router.post("/createvendastable", isAuthenticated, (req,res)=>{
     const tablesname = req.body.tablesname
@@ -73,6 +75,18 @@ router.post("/createvendastable", isAuthenticated, (req,res)=>{
     if(!sanitizedTablesName || sanitizedTablesName.length > 50 || !regex.test(sanitizedTablesName)) {
         return res.redirect('/createtable?error=no_name');
     }
+
+    //adicionei
+        //ativa a foreign key
+        dbProd.all("PRAGMA foreign_keys = ON;", (err) => {
+            if (err) {
+                console.error("Erro ao ativar Foreign Keys:", err.message);
+            } else {
+                console.log("Suporte a Foreign Keys ativado.");
+            }
+        });
+
+
 
     const sql = `CREATE TABLE IF NOT EXISTS "${sanitizedTablesName}" (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
