@@ -13,14 +13,26 @@
 
     <input type="hidden" name="tablesname" value="{{tablesname}}" >
 
-    <span>produto</span>
+    <span>Produto</span>
     <input type="text" name="produto" placeholder="product name" >
     
-    <span>valor</span>
-    <input type="number" name="valor" placeholder="value" >
+    <span>Valor Compra</span>
+    <input type="number" name="valor" placeholder="valor Compra" >
     
-    <span>quantidade</span>
-    <input type="number" name="quantidade" placeholder="quantidade" >
+    <span>Quantidade Comprada</span>
+    <input type="number" name="quantidade_comprada" placeholder="quantidade comprada" >
+
+     <span>Descrição</span>
+    <input type="text" name="descricao" placeholder="Descrição" >
+
+    <span>Estoque</span>
+    <input type="number" name="estoque" placeholder="estoque" >
+
+    <span>Quantidade Venda</span>
+    <input type="number" name="quantidade_vendida" placeholder="quantidade vendida" >
+
+    <span>valor Venda</span>
+    <input type="number" name="valor_venda" placeholder="valor Venda" >
 
     <input type="submit">
 
@@ -68,10 +80,28 @@
         
         <label for="quantidade" >
             <h4>Quantidade</h4>
-            <div>{{this.quantidade}}</div>
+            <div>{{this.quantidade_comprada}}</div>
         </label>
 
+        <label for="descricao" >
+            <h4>Descricao</h4>
+            <div>{{this.descricao}}</div>
+        </label>
+
+         <label for="estoque" >
+            <h4>Estoque</h4>
+            <div>{{this.estoque}}</div>
+        </label>
+
+        <label for="quantidade_vendida" >
+            <h4>Quantidade_Vendida</h4>
+            <div>{{this.quantidade_vendida}}</div>
+        </label>
     
+        <label for="valor_venda" >
+            <h4>Valor Venda</h4>
+            <div>{{this.valor_venda}}</div>
+        </label>
 
     </div>
 
@@ -87,6 +117,9 @@
     {{/if}}
 
     
+
+<!--vendas-->
+
 
 <!--
 <h1>Conteúdo da Tabela: {{tablesname}}</h1>

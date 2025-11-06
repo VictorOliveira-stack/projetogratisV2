@@ -450,4 +450,5 @@ router.get('/get-totals/:tablesname', (req, res) => {
     });
 });
 
+
 module.exports = router

@@ -148,7 +148,12 @@ router.post('/creatingtable', isAuthenticated, (req, res) => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         produto TEXT,
         valor DECIMAL(10,2),
-        quantidade INT,
+        quantidade_comprada INT,
+        descricao TEXT,
+        estoque INT,
+        quantidade_vendida INT DEFAULT 0,
+        valor_venda,
+        ultima_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     )`, (err) => {
         if (err) {
@@ -283,11 +288,11 @@ router.get('/showtable/:tablesname', isAuthenticated, (req,res)=>{
             return res.status(500).send('Erro ao buscar dados da tabela.');
         }
 
-            const sqlSum = `SELECT SUM(valor) AS valorTotal, SUM(quantidade) AS quantidadeTotal FROM "${tablesname}"`
+            const sqlSum = `SELECT SUM(valor) AS valorTotal, SUM(quantidade_comprada) AS quantidadeTotal FROM "${tablesname}"`
 
             dbProd.get(sqlSum, (err, sums) =>{
                 if(err){
-                    console.error(`Error ao calcular totais para a tabela '${tablesname}`)
+                    console.error(`Error ao calcular totais para a tabela '${tablesname}'`)
                     return res.status(500).send('Error ao criar totais.')
                 }
                 res.render('showtable.handlebars', {
@@ -316,9 +321,14 @@ router.get('/showtable/:tablesname', isAuthenticated, (req,res)=>{
 router.post('/inserttableprod', isAuthenticated, (req, res) => {
    
     const tablesname = req.body.tablesname; // Você precisará adicionar um input hidden com o nome da tabela
+
     const produto = req.body.produto;
     const valor = req.body.valor;
-    const quantidade = req.body.quantidade;
+    const quantidade_comprada = req.body.quantidade_comprada;
+    const descricao = req.body.descricao;
+    const estoque = req.body.estoque;
+    const quantidade_vendida = req.body.quantidade_vendida;
+    const valor_venda = req.body.valor_venda
 
     // validação da whitelist //importante! estudar mais sobre isso
     dbProd.all("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ", (err, tables) => {
@@ -334,8 +344,8 @@ router.post('/inserttableprod', isAuthenticated, (req, res) => {
         }
 
         
-        const sql = `INSERT INTO "${tablesname}" (produto, valor, quantidade) VALUES (?, ?, ?)`;
-        const values = [produto, valor, quantidade];
+        const sql = `INSERT INTO "${tablesname}" (produto, valor, quantidade_comprada, descricao, estoque, quantidade_vendida, valor_venda) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const values = [produto, valor, quantidade_comprada, descricao, estoque, quantidade_vendida, valor_venda];
 
         
         dbProd.run(sql, values, (err) => {
@@ -343,10 +353,15 @@ router.post('/inserttableprod', isAuthenticated, (req, res) => {
                 console.error(`Erro ao inserir dados na tabela '${tablesname}': `, err.message);
                 return res.status(500).send('Erro ao inserir dados.');
             }
-            res.redirect(`/showtable/${tablesname}`); // Redireciona de volta para a tabela
+            res.redirect(`/alltables`); // Redireciona de volta para a tabela
         });
     });
+
+    
+
 });
+
+
 
 //DELET
 
@@ -446,12 +461,18 @@ router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
 
 
     const tablesname = req.body.tablesname
-    const id = req.body.id
-    const produto = req.body.produto
-    const valor = req.body.valor
-    const quantidade = req.body.quantidade
 
-    if (!tablesname || !id || !produto || !valor || !quantidade) {
+    const id = req.body.id
+    const produto = req.body.produto;
+    const valor = req.body.valor;
+    const quantidade_comprada = req.body.quantidade_comprada;
+    const descricao = req.body.descricao;
+    const estoque = req.body.estoque;
+    const quantidade_vendida = req.body.quantidade_vendida;
+    const valor_venda = req.body.valor_venda
+
+
+    if (!tablesname || !id || !produto || !valor || !quantidade_comprada || descricao || estoque || quantidade_vendida || valor_venda) {
         return res.status(400).send('Missing required data.');
     }
 
@@ -470,8 +491,8 @@ router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
         }
 
         //adotar de vez essa estrutura mais simplificada de declarar as querys que em outros projetos estavas usando
-        const sql = `UPDATE  "${tablesname}" SET produto = ?, valor = ?, quantidade = ? WHERE id = ?`
-        const params = [produto, valor, quantidade, id]
+        const sql = `UPDATE  "${tablesname}" SET produto = ?, valor = ?, quantidade_comprada = ?, descricao = ?, estoque = ?, quantidade_vendida = ?, valor_venda = ?  WHERE id = ?`
+        const params = [produto, valor, quantidade_comprada, descricao, estoque, quantidade_vendida, valor_venda,   id]
 
         //adotar de vez essa estrutura mais simplificada de rodar as querys que em outros projetos estavas usando
         dbProd.run( sql, params, function(err, rows){
