@@ -167,6 +167,86 @@ router.post('/creatingtable', isAuthenticated, (req, res) => {
     
 });
 
+/*router.post('/creatingtable', isAuthenticated, (req, res) => {
+    const { tablesname } = req.body;
+
+    
+    const sanitizedTablesName = tablesname.trim(); // Remove espaços em branco
+    // Regex de validação do nome da tabela
+    const regex = /^[a-zA-Z0-9_-çÇ .,!?]+$/; 
+
+    if (!sanitizedTablesName || sanitizedTablesName.length > 50 || !regex.test(sanitizedTablesName)) {
+        return res.redirect('/createtable?error=invalid_name');
+    }
+
+    // --- Definições do Trigger (Gatilho) ---
+    const triggerNameBase = sanitizedTablesName.replace(/[^a-zA-Z0-9_]/g, ''); 
+
+    // 1. Gatilho AFTER UPDATE: Recalcula o estoque quando a quantidade_vendida muda.
+    const createUpdateTriggerSQL = `
+        CREATE TRIGGER IF NOT EXISTS update_estoque_venda_${triggerNameBase}
+        AFTER UPDATE OF quantidade_vendida ON "${sanitizedTablesName}"
+        FOR EACH ROW
+        WHEN NEW.quantidade_vendida <> OLD.quantidade_vendida
+        BEGIN
+            -- Subtrai do estoque a diferença entre a nova venda (NEW) e a venda anterior (OLD)
+            UPDATE "${sanitizedTablesName}"
+            SET estoque = estoque - (NEW.quantidade_vendida - OLD.quantidade_vendida),
+                ultima_atualizacao = CURRENT_TIMESTAMP
+            WHERE id = NEW.id;
+        END;
+    `;
+
+    // REMOVIDO: O Trigger AFTER INSERT, pois estava sendo problemático.
+    // O cálculo inicial é feito na rota /inserttableprod.
+
+
+    // Usamos serialize para garantir a ordem correta dos comandos.
+    dbProd.serialize(() => {
+        let errorEncountered = false;
+
+        // 1. Ativa a Foreign Key
+        dbProd.run("PRAGMA foreign_keys = ON;", (err) => {
+            if (err) { console.error("Erro ao ativar Foreign Keys:", err.message); }
+        });
+
+        // 2. Cria a Tabela
+        dbProd.run(`CREATE TABLE IF NOT EXISTS "${sanitizedTablesName}" (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            produto TEXT,
+            valor DECIMAL(10,2),
+            quantidade_comprada INT,
+            descricao TEXT,
+            estoque INT,
+            quantidade_vendida INT DEFAULT 0,
+            valor_venda,
+            ultima_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )`, (err) => {
+            if (err) {
+                console.error(`Erro ao criar a tabela '${sanitizedTablesName}': `, err.message);
+                errorEncountered = true;
+                return res.redirect(`/createtable?error=${encodeURIComponent(err.message)}`);
+            }
+
+            // 3. Cria o Gatilho AFTER UPDATE (ÚNICO Gatilho restante)
+            dbProd.run(createUpdateTriggerSQL, (err) => {
+                if (err) { 
+                    console.error(`Erro ao criar o Gatilho UPDATE para '${sanitizedTablesName}': `, err.message);
+                    errorEncountered = true;
+                    return res.redirect(`/createtable?error=${encodeURIComponent('Erro ao criar o gatilho UPDATE: ' + err.message)}`); 
+                }
+
+                
+                if (!errorEncountered) {
+                    console.log(`Tabela criada e Gatilho AFTER UPDATE para '${sanitizedTablesName}' instalado.`);
+                    return res.redirect('/createtable?success=true');
+                }
+            });
+        });
+    });
+});*/
+
 //deletar a table
 router.post("/droptableprod", isAuthenticated, (req,res)=>{
     const tablesname = req.body.tablesname
@@ -318,7 +398,7 @@ router.get('/showtable/:tablesname', isAuthenticated, (req,res)=>{
 
 // inserttableprod
 
-router.post('/inserttableprod', isAuthenticated, (req, res) => {
+/*router.post('/inserttableprod', isAuthenticated, (req, res) => {
    
     const tablesname = req.body.tablesname; // Você precisará adicionar um input hidden com o nome da tabela
 
@@ -359,7 +439,53 @@ router.post('/inserttableprod', isAuthenticated, (req, res) => {
 
     
 
+});*/
+
+router.post('/inserttableprod', isAuthenticated, (req, res) => {
+    
+    const tablesname = req.body.tablesname; 
+
+    const produto = req.body.produto;
+    const valor = req.body.valor;
+    const quantidade_comprada = req.body.quantidade_comprada;
+    const descricao = req.body.descricao;
+    // const estoque = req.body.estoque; <-- Ignoramos o valor do formulário
+    const quantidade_vendida = req.body.quantidade_vendida;
+    const valor_venda = req.body.valor_venda
+
+    // Cálculo do Estoque de FORMA CONFIÁVEL no Node.js para o INSERT inicial
+    const quantidadeComprada = Number(quantidade_comprada) || 0;
+    const quantidadeVendida = Number(quantidade_vendida) || 0;
+    const estoqueCalculado = quantidadeComprada - quantidadeVendida;
+
+    // validação da whitelist
+    dbProd.all("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ", (err, tables) => {
+        if (err) {
+            return res.status(500).send('Erro interno do servidor');
+        }
+
+        const validTables = tables.map(table => table.name);
+
+        if (!validTables.includes(tablesname)) {
+            console.warn(`Tentativa de inserção em uma tabela inválida: ${tablesname}`);
+            return res.status(404).send('Página não encontrada');
+        }
+
+        // A query SQL usa o estoqueCalculado
+        const sql = `INSERT INTO "${tablesname}" (produto, valor, quantidade_comprada, descricao, estoque, quantidade_vendida, valor_venda) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const values = [produto, valor, quantidade_comprada, descricao, estoqueCalculado, quantidade_vendida, valor_venda];
+
+        
+        dbProd.run(sql, values, (err) => {
+            if (err) {
+                console.error(`Erro ao inserir dados na tabela '${tablesname}': `, err.message);
+                return res.status(500).send('Erro ao inserir dados.');
+            }
+            res.redirect(`/alltables`); // Redireciona de volta para a tabela
+        });
+    });
 });
+
 
 
 
@@ -455,7 +581,8 @@ router.get('/edittableprod/:tablesname/:id', isAuthenticated, (req, res)=>{
     //res.render('edittableprod.handlebars')
 })
 
-router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
+
+/*router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
 
     console.log(req.body)
 
@@ -472,7 +599,7 @@ router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
     const valor_venda = req.body.valor_venda
 
 
-    if (!tablesname || !id || !produto || !valor || !quantidade_comprada || descricao || estoque || quantidade_vendida || valor_venda) {
+    if (!tablesname || !id || !produto || !valor || !quantidade_comprada || !descricao || !estoque || !quantidade_vendida || !valor_venda) {
         return res.status(400).send('Missing required data.');
     }
 
@@ -505,13 +632,68 @@ router.post('/updatetablesprod', isAuthenticated, (req, res)=>{
          /*if (rows.length === 0) {
             return res.status(404).send('No data found for the given ID.');
         }*/
-            res.redirect(`/showtable/${tablesname}`)
+            //res.redirect(`/showtable/${tablesname}`)//retire essa barra
         //res.redirect(`/showtablesprod/${tablesname}`);
-        })
+        //})//retire essa barra
 
-    })
+    //})//retire essa barra
 
     //res.render('edittableprod.handlebars')
-})
+//})*/
+
+router.post('/updatetablesprod', isAuthenticated, (req, res) => {
+    const tablesname = req.body.tablesname;
+    const id = req.body.id;
+    const produto = req.body.produto;
+    const valor = req.body.valor;
+    const quantidade_comprada = Number(req.body.quantidade_comprada);
+    const descricao = req.body.descricao;
+    const quantidade_vendida = Number(req.body.quantidade_vendida);
+    const valor_venda = req.body.valor_venda;
+
+    if (!tablesname || !id) {
+        return res.status(400).send('Dados insuficientes.');
+    }
+
+    dbProd.all("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'", (err, tables) => {
+        if (err) {
+            console.error('Erro ao listar tabelas', err.message);
+            return res.status(500).send('Erro interno do servidor');
+        }
+
+        const validTables = tables.map(table => table.name);
+        if (!validTables.includes(tablesname)) {
+            console.warn(`Tentativa de acesso a tabela inválida: ${tablesname}`);
+            return res.status(404).send('Tabela não encontrada');
+        }
+
+        // 🔹 Recalcular o estoque de forma confiável
+        const estoqueCalculado = quantidade_comprada - quantidade_vendida;
+
+        const sql = `
+            UPDATE "${tablesname}" 
+            SET produto = ?, valor = ?, quantidade_comprada = ?, descricao = ?, quantidade_vendida = ?, valor_venda = ?, estoque = ?, ultima_atualizacao = CURRENT_TIMESTAMP
+            WHERE id = ?`;
+
+        const params = [
+            produto, 
+            valor, 
+            quantidade_comprada, 
+            descricao, 
+            quantidade_vendida, 
+            valor_venda,
+            estoqueCalculado,
+            id
+        ];
+
+        dbProd.run(sql, params, function (err) {
+            if (err) {
+                console.error(`Erro ao atualizar dados da tabela '${tablesname}': `, err.message);
+                return res.status(500).send('Erro ao atualizar dados da tabela.');
+            }
+            res.redirect(`/showtable/${tablesname}`);
+        });
+    });
+});
 
 module.exports = router
