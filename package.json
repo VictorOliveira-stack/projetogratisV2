@@ -1,10 +1,12 @@
 {
-  "name": "managementproject",
+  "name": "projetogratis",
   "version": "1.0.0",
   "main": "index.js",
+  "bin": "index.js", 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js localhost 9000"
+    "start": "node index.js", 
+    "build": "pkg ." 
   },
   "author": "Victor Oliveira Stack",
   "license": "ISC",
@@ -19,5 +21,30 @@
     "nodemon": "^3.1.10",
     "sqlite3": "^5.1.7",
     "sqlite3-offline": "^4.3.1"
+  },
+  "pkg": {
+    "assets": [
+      
+    "node_modules/sqlite3/build/Release/*.node",
+    "node_modules/sqlite3/lib/binding/**/*.node", 
+    "node_modules/sqlite3/build/default/*.node",
+    "node_modules/sqlite3-offline/binaries/**/*.node",
+
+    
+    "node_modules/bcrypt/prebuilds/**/*",
+    
+    
+    "model/**/*.js", 
+    "routers/**/*.js", 
+    "views/**/*.handlebars", 
+    "public/**/*" 
+    ],
+    "targets": [
+      "node18-win-x64", 
+      "node18-linux-x64" 
+    ]
   }
 }
+
+
+
