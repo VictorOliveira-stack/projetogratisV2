@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 9000
 const path = require('path')
+const opener = require('opener');
 
 const session = require('express-session')
 const LokiStore = require('connect-loki')(session)
@@ -86,6 +87,15 @@ app.get("/calculos",(req,res)=>{
 })
 
 
-app.listen(port, ()=>{
+/*app.listen(port, ()=>{
     console.log(`rodando ${port}`)
+})*/
+
+app.listen(port, async (error)=>{
+    console.log(`rodando ${port}`)
+
+    opener(`http://localhost:${port}`);
+    console.log(`Navegador aberto em http://localhost:${port}`);
+    console.log(error)
+
 })
