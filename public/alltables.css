@@ -1,0 +1,87 @@
+body{
+    background: #1B2A41;
+    color: antiquewhite;
+    /* color: #4C5C68; cola de cor para usar nesse projeto tambem*/
+    /*display: flex;
+    justify-content: center; 
+    align-items: center;*/
+    min-height: 100vh;      
+    margin: 0;   
+}
+
+.buttonInit{
+    background: radial-gradient( rgba(126, 224, 14, 0.74), rgba(155, 240, 58, 0.568), rgba(126, 224, 14, 0.589)   ) ;
+    text-decoration: none;
+    border-radius: 10em;
+    color: rgb(255, 250, 243);
+    height: 2em;
+    box-shadow: none;
+    margin-top: 1.5em;
+    margin-left: 45%;
+    /*margin-left: 3.5em;*/
+    width: 8em;
+    cursor: pointer;
+    
+}
+
+.buttonInit2{
+    color: white;
+    text-decoration: none;
+    margin-top: 10em;
+    margin-left: 3em;
+}
+
+.buttonInit2 a {
+    color: white;
+    text-decoration: none;
+    
+   
+}
+
+.table-list{
+    background: radial-gradient( rgba(126, 224, 14, 0.74), rgba(155, 240, 58, 0.568), rgba(126, 224, 14, 0.589));
+    list-style-type: none;
+    width: 8em;
+    border-radius: 10px;
+    margin-left: 0.5em;
+    
+}
+
+.table-list a {
+    text-decoration: none;
+    color: white;
+    
+}
+
+.table-actions{
+    margin-top: 1em;
+    
+}
+
+
+.buttonInit2{
+    background: radial-gradient( rgba(126, 224, 14, 0.74), rgba(155, 240, 58, 0.568), rgba(126, 224, 14, 0.589)   ) ;
+    text-decoration: none;
+    border-radius: 10em;
+    color: rgb(255, 250, 243);
+    height: 2em;
+    box-shadow: none;
+    margin-top: 1.5em;
+    margin-left: 0;
+    /*margin-left: 3.5em;*/
+    width: 4em;
+    cursor: pointer;
+    
+}
+
+.buttonInit3{
+    background: radial-gradient( rgba(230, 6, 6, 0.74), rgba(230, 15, 15, 0.568), rgba(224, 14, 14, 0.589)   ) ;
+    text-decoration: none;
+    border-radius: 10em;
+    color: rgb(255, 250, 243);
+    height: 2em;
+    box-shadow: none;
+    margin-top: 1.5em;
+    
+    width: 4em;
+}

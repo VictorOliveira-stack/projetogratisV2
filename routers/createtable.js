@@ -96,7 +96,7 @@ router.get('/createtable', isAuthenticated, (req, res) => {
                     });
                 }
 
-                return res.render('createtable.handlebars', {
+                return res.rend('createtable.handlebars', {
                     tables: tables,
                     data: rows,
                     selectedTable: tableToRender,
