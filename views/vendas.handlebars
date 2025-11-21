@@ -1,19 +1,28 @@
+<link rel="stylesheet" href="../public/vendas.css">
+
+<div style=" margin: 1em; margin-top: 1em; display: flex; gap:2em;">
 <div>
-    <a href="/home">Home</a>
+    <a style="color: white; text-decoration: none;" href="/home">Home</a>
 </div>
 <div>
-    <a href="/alltables?">tables</a>
+    <a style="color: white;  text-decoration: none;" href="/alltables?">Tabelas</a>
 </div>
-<h1>vendas</h1>
+</div>
+
+<h1 style=" display: flex;
+    justify-content: center;
+    align-items: center;">vendas</h1>
 
  <form action="/createvendastable" method="post">
 
-    <div>
-        <label for="tablesname">Insert the name table</label><br>
+  <div class="containerform">
+    <div >
+        <label for="tablesname">Insira o nome da tabela</label><br>
         <input id="inputVendas" name="tablesname" type="text" value="vendas" oninput="manterPalavra()" placeholder="Insert name table">
 
     </div>
-    <input type="submit" value="create table">
+   </div> 
+    <input class="buttonInit" type="submit" value="create table">
 
     <script>
   function manterPalavra() {
@@ -36,6 +45,8 @@
 </script>
    
 </form> 
+
+<br><br>
 
 <!--
 <div>
@@ -67,21 +78,22 @@
 
 <div id="tabelas-disponiveis" style="border: 1px solid #ccc; padding: 10px; min-height: 100px;">
     <h2>Tabelas Disponíveis</h2>
+    <p>arraste as tabelas que deseja comparar para a área abaixo</p>
     {{#each tables}}
-    <div class="tabela-arrastavel" draggable="true" data-tablename="{{this.name}}" style="margin: 5px; padding: 5px; border: 1px solid blue; background-color: #e0e0ff; display: inline-block; cursor: grab;">
+    <div class="tabela-arrastavel buttonInit2" draggable="true" data-tablename="{{this.name}}" style="margin: 5px; padding: 5px; border: 1px solid blue; background-color: #e0e0ff; display: inline-block; cursor: grab;">
        <a href="/showtablevendas/{{this.name}}">{{this.name}}</a>
     </div>
     {{/each}}
 </div>
 
-<div id="dashboard-area" style="border: 2px dashed gray; padding: 20px; margin-top: 20px; min-height: 300px; background-color: #f9f9f9;">
+<div id="dashboard-area" style="border: 2px dashed gray; padding: 20px; margin-top: 20px; min-height: 300px; ">
     <h2>Seu Dashboard de Vendas</h2>
     <p>Arraste as tabelas de venda aqui para visualizar os totais e gerar o gráfico.</p>
 
     <div id="dashboard-content" style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
         </div>
 
-    <div id="chart-container" style="width: 80%; height: 400px; margin: auto; border: 1px solid #ddd; padding: 10px; background-color: white;">
+    <div id="chart-container" style="width: 80%; height: 400px; margin: auto; border: 1px solid #ddd; padding: 10px; background-color: rgba(255, 255, 255, 0.801);">
         <canvas id="myChart"></canvas>
     </div>
 </div>

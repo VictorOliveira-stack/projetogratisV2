@@ -8,6 +8,17 @@ body{
     min-height: 100vh;      
     margin: 0;   
 }
+.containerform{
+    margin-top: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerform input{
+    border: 1px solid #c5a30b;
+    border-radius: 3em;
+}
 
 .buttonInit{
     background: radial-gradient( rgba(126, 224, 14, 0.74), rgba(155, 240, 58, 0.568), rgba(126, 224, 14, 0.589)   ) ;
@@ -17,27 +28,13 @@ body{
     height: 2em;
     box-shadow: none;
     margin-top: 1.5em;
-    margin-left: 3.5em;
+    margin-left: 2.5em;
     width: 8em;
     cursor: pointer;
     
 }
 
-.buttonInit a {
+a {
     color: white;
     text-decoration: none;
-    
-}
-
-.buttonInit2{
-    background: radial-gradient( rgba(230, 6, 6, 0.74), rgba(230, 15, 15, 0.568), rgba(224, 14, 14, 0.589)   ) ;
-    text-decoration: none;
-    border-radius: 10em;
-    color: rgb(255, 250, 243);
-    height: 2em;
-    box-shadow: none;
-    margin-top: 1.5em;
-    margin-left: 3.5em;
-    width: 8em;
-    cursor: pointer;
 }

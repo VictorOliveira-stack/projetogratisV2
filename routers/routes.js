@@ -117,7 +117,7 @@ router.get('/home', isAuthenticated, (req,res)=>{
     res.render('home.handlebars')
 })
 //logout
-router.get('/logout', (req,res)=>{
+router.get('/logout', isAuthenticated, (req,res)=>{
     req.session.destroy(err => {
         if(err){
             console.error('Error to detroy the session: ', err)
@@ -125,6 +125,10 @@ router.get('/logout', (req,res)=>{
         }
         res.redirect('/')
     })
+})
+
+router.get("/calculos", isAuthenticated, (req,res)=>{
+    res.render("calculos.handlebars")
 })
 
 

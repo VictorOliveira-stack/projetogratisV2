@@ -435,7 +435,7 @@ router.post('/updatetablevendas', isAuthenticated, (req, res)=>{
 //
 
 //render dash
-router.get('/get-totals/:tablesname', (req, res) => {
+router.get('/get-totals/:tablesname', isAuthenticated, (req, res) => {
     const tablesname = req.params.tablesname;
 
     // Reutilizando o código para calcular a soma

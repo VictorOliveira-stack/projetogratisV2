@@ -1,4 +1,17 @@
-<h1>edit vendas</h1>
+<link rel="stylesheet" href="/public/edittablevendas.css">
+
+<div style=" margin: 1em; margin-top: 1em; display: flex; gap:2em;">
+<div>
+    <a style="color: white; text-decoration: none;" href="/home">Home</a>
+</div>
+<div>
+    <a style="color: white;  text-decoration: none;" href="/alltables?">Tabelas</a>
+</div>
+</div>
+
+<h1 style="margin-left: 42%;">Editar vendas</h1>
+
+<div class="containerform">
 
 <form action="/updatetablevendas" method="post">
 
@@ -18,6 +31,8 @@
                 <span>data</span>
                 <input type="data" name="data_venda" value="{{data.data_venda}}" placeholder="data da venda" required>
 
-                <input type="submit" value="edit" >
+                <input class="buttonInit" type="submit" value="edit" >
 
 </form>
+
+</div>

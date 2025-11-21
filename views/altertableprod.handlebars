@@ -1,8 +1,27 @@
-<h1>alter</h1>
-<form action="/altertableprod" method="post">
+<link rel="stylesheet" href="/public/editatableprod.css">
+
+<div style=" margin: 1em; margin-top: 1em; display: flex; gap:2em;">
+<div>
+    <a style="color: white; text-decoration: none;" href="/home">Home</a>
+</div>
+<div>
+    <a style="color: white;  text-decoration: none;" href="/alltables?">Tabelas</a>
+</div>
+</div>
+
+<h1 style="margin-left: 40%;">Editar nome da tabela</h1> 
+
+
+ <form action="/altertableprod" method="post">
+
+  <div style="margin-left: 42.5%;" class="divcontainer">
 
     <input type="hidden" name="tablesname" value="{{tablesname}}"> 
     <!--<input type="text" name="newNameTable" placeholder="New Name" required>-->
-    <input type="text" name="newNameTable" value="{{tablesname}}" required>
-    <input type="submit" name="Rename Table">
-</form>
+    <input  type="text" name="newNameTable" value="{{tablesname}}" required>
+    <input id="submit" type="submit" name="Rename Table">
+
+  </div>
+
+ </form>
+

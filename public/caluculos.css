@@ -1,110 +1,173 @@
-
-.containercalculos{
-    background-image: radial-gradient(circle, rgba(104, 185, 104, 0.418), rgba(80, 194, 80, 0.418) ) ;
-    padding-top: 1em;
-    padding-bottom: 5em;
+body{
+    background: #1B2A41;
+    color: antiquewhite;
+    /* color: #4C5C68; cola de cor para usar nesse projeto tambem*/
+    /*display: flex;
+    justify-content: center; 
+    align-items: center;*/
+    min-height: 100vh;      
+    margin: 0;   
+}
+/* Container Principal: Fundo Escuro com Destaque */
+.containercalculos {
+    /* 1. Adaptação do Fundo: Use o azul escuro do body para um fundo coeso. */
+    background-color: #1B2A41;
+    
+    /* 2. Borda/Sombra de Destaque (Opcional, mas realça a seção) */
+    border: 1px solid #4C5C68; /* Borda sutil */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra mais discreta */
+    
+    /* Mantém os estilos de espaçamento e formato */
+    padding-top: 2em;
+    padding-bottom: 2em;
     border-radius: 1em;
-    box-shadow: 1px 4px 15px black;
-    width: 100%;
+    width: 95%; /* Ajuste a largura para ter respiro nas laterais */
+    max-width: 1200px; /* Limite máximo para não ficar muito largo em telas grandes */
+    margin: 20px auto; /* Centraliza na página */
 }
 
-.calculadoras{
-    
-    width: 8em;
-    margin-left: 3.5em;
+/* Títulos Principais (H1 e H2) */
+.containercalculos h1 {
+    color: antiquewhite; /* Cor do texto principal */
+    font-size: 1.8em;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #92E86B; /* Linha de destaque verde */
+    padding-bottom: 5px;
+    width: fit-content;
+}
+.containercalculos h2 {
+    color: #92E86B; /* Títulos dos blocos de cálculo em verde vibrante */
+    font-size: 1.5em;
+    margin-bottom: 15px;
 }
 
-.pcinza{
-    color: #33333369;
+/* Bloco Individual da Calculadora */
+.calculadoras {
+    /* Fundo para dar um 'card' discreto, usando a cor cinza do tema anterior, mas com transparência. */
+    background-color: rgba(76, 92, 104, 0.3); /* #4C5C68 com transparência */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    /* Mantém o flexbox para organização na linha, mas ajusta a margem */
+    margin: 10px;
+    width: 250px; /* Largura fixa para deixar os blocos uniformes */
+    display: flex; /* Garante que os filhos (h2, p, inputs) se ajustem */
+    flex-direction: column;
 }
 
-/* Seletor para input de número */
+/* Organização dos Blocos na Linha */
+.containercalculos > div:first-of-type,
+.containercalculos > div:last-of-type {
+    /* A div que contém as calculadoras */
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    justify-content: space-around; /* Distribui o espaço entre os blocos */
+    gap: 15px; /* Espaçamento entre as calculadoras */
+}
+
+/* Parágrafo de descrição (pcinza) */
+.pcinza {
+    color: #4C5C68; /* Mantenha um cinza sutil para a descrição */
+    font-size: 0.9em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Labels e Resultados */
+label {
+    color: antiquewhite; /* Texto da label em branco/amarelado */
+    font-weight: 500;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+#resultadoLucro, #resultado, #resultadoROE, #resultadoROI, #resultadoPE, 
+#resultadoLiquidezCorrente, #resultadoLS, #resultadoLI, #resultadoGE, 
+#composicao, #analiseComposicaoEndividamento, #resultadoEBITDA {
+    color: #92E86B; /* Destaque os resultados com a cor verde */
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Campo de Input (Revisado para o tema escuro) */
 input[type="number"] {
-    /* Esconde as setas no Firefox */
-    -moz-appearance: textfield;
+    /* Inverte as cores para o tema escuro */
+    background-color: #2e4466; /* Um azul mais claro que o fundo principal */
+    color: antiquewhite; /* Texto dentro do input em branco/amarelado */
+    border: 2px solid #4C5C68; /* Borda discreta */
+    border-radius: 6px;
+    padding: 8px 10px;
+    width: 100%; /* Ocupa 100% do espaço da calculadora */
+    box-sizing: border-box; /* Garante que padding não estoure o width */
 }
 
-/* Esconde as setas no Chrome, Safari, Edge, etc. (motores WebKit) */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0; /* Remove a margem extra que as setas ocupavam */
-}
-input[type="number"] {
-    /* 1. Tamanho e Fontes */
-    width: 8em;
-    height: 1em;
-    padding: 10px 15px; /* Espaçamento interno */
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    color: #333;
-
-    /* 2. Bordas e Formato */
-    border: 2px solid #ccc; /* Bordas suaves */
-    border-radius: 8px; /* Cantos arredondados */
-    outline: none; /* Remove o contorno azul/preto padrão ao focar */
-    transition: border-color 0.3s, box-shadow 0.3s; /* Adiciona transição para um toque profissional */
-
-    /* 3. Fundo */
-    background-color: #f9f9f9;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.644);
-}
-
-/* 4. Estilo ao Focar (Muito importante para usabilidade!) */
 input[type="number"]:focus {
-    border-color: #007bff; /* Mudar cor da borda ao focar (ex: azul primário) */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Sombra suave ao redor */
-    background-color: #fff; /* Fundo branco ao focar */
+    /* Destaque ao focar com o verde primário */
+    border-color: #92E86B;
+    box-shadow: 0 0 0 2px rgba(146, 232, 107, 0.4); /* Sombra suave verde */
+    background-color: #384e72; /* Levemente mais claro para focar */
 }
 
-.button{
-    background-image: radial-gradient(circle, rgba(105, 187, 95, 0.753), rgba(33, 187, 13, 0.781));
-    border-radius: 2em;
-    height: 2.5em;
-    color: white;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.644);
+/* Botão (Mantenha o verde como destaque para a ação) */
+.button {
+    /* O gradiente verde já está bom, mas ajuste a cor do texto para melhor leitura */
+    background-image: radial-gradient(circle, #92E86B, #53C83D); 
+    color: #1B2A41; /* Mude a cor do texto para o azul escuro para um contraste forte */
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 4px; /* Cantos um pouco menos arredondados para modernizar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: background-image 0.3s;
+    height: auto; /* Remove altura fixa para melhor adaptabilidade */
+    margin-top: 15px; /* Adiciona espaço acima do botão */
 }
-button {
-    /* Remove o estilo padrão nos navegadores */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    /* Remove a borda padrão e cor de fundo */
-    border: none;
-    background: none; 
-    
-    /* Garante que o texto seja centralizado (se o botão tiver um tamanho fixo) */
-    text-align: center; 
+.button:hover {
+    background-image: radial-gradient(circle, #A9FF83, #63D94A);
 }
 
 
 .tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  
+  }
+  
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* aparece acima do símbolo */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 13px;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
 
-}
-
-.tooltip .tooltip-text {
-  visibility: hidden;
-  width: 220px;
-  background-color: #333;
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 8px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%; /* aparece acima do símbolo */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 13px;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+/* Responsividade Básica: Empilha os blocos em telas pequenas */
+@media (max-width: 650px) {
+    .containercalculos > div:first-of-type,
+    .containercalculos > div:last-of-type {
+        flex-direction: column; /* Empilha as calculadoras verticalmente */
+        align-items: center;
+    }
+    .calculadoras {
+        width: 90%; /* Ocupa a maior parte da largura da tela */
+        margin: 10px 0;
+    }
 }

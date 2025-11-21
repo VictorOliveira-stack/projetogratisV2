@@ -1,4 +1,17 @@
-<h1>edit</h1>
+<link rel="stylesheet" href="/public/editatableprod.css">
+
+<div style=" margin: 1em; margin-top: 1em; display: flex; gap:2em;">
+<div>
+    <a style="color: white; text-decoration: none;" href="/home">Home</a>
+</div>
+<div>
+    <a style="color: white;  text-decoration: none;" href="/alltables?">Tabelas</a>
+</div>
+</div>
+
+<h1 style="color: white; margin-left: 47%;">Editar</h1>
+
+<div class="containerform">
 
 <form action="/updatetablesprod" method="post">
 
@@ -22,6 +35,8 @@
                 <input type="number" name="estoque" value="{{data.estoque}}">
                 <br> 
 
+                <br>
+
                 <span>Quantidade Venda</span>
                 <input type="number" name="quantidade_vendida" value="{{data.quantidade_vendida}}" >
 
@@ -29,6 +44,7 @@
                 <input type="number" name="valor_venda" value="{{data.valor_venda}}">
 
 
-                <input type="submit" value="edit" >
+                <input class="buttonInit" type="submit" value="Editar" >
 
 </form>
+</div>

@@ -1,15 +1,21 @@
+<link rel="stylesheet" href="../public/createtable.css">
 
+<div style="margin: 1em; display: flex; gap: 2em;">
 <div>
     <a href="/home">Home</a>
 </div>
 
 <div>
-    <a href="/alltables?">tables</a>
+    <a href="/alltables?">Tabelas</a>
+</div>
 </div>
 
-<h1>criar</h1>
+<h1 style=" display: flex;
+    justify-content: center;
+    align-items: center;" >criar</h1>
 
 
+<div class="containerform">
 
 <form action="/creatingtable" method="post">
 
@@ -18,7 +24,7 @@
         <input id="inputProduto" name="tablesname" type="text" placeholder="Insert name table" value="produto" oninput="manterPalavra()">
 
     </div>
-    <input type="submit" value="create table">
+    <input class="buttonInit" type="submit" value="create table">
 
     <script>
   function manterPalavra() {
@@ -41,6 +47,8 @@
 </script>
    
 </form>
+
+</div>
 <!--
 <form action="/list-tables" method="get">
     <input type="submit" value="tables">

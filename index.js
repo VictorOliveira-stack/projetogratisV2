@@ -82,9 +82,9 @@ app.use('/', createtable) //const criatetable = require("./routers/createtable.j
     app.use('/', vendas)
 
 
-app.get("/calculos",(req,res)=>{
+/*app.get("/calculos",(req,res)=>{
     res.render("calculos.handlebars")
-})
+})*/
 
 
 /*app.listen(port, ()=>{

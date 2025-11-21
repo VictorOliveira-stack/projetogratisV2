@@ -17,27 +17,25 @@ body{
     height: 2em;
     box-shadow: none;
     margin-top: 1.5em;
-    margin-left: 3.5em;
+   
+    /*margin-left: 3.5em;*/
     width: 8em;
     cursor: pointer;
     
 }
 
-.buttonInit a {
-    color: white;
-    text-decoration: none;
-    
-}
 
-.buttonInit2{
-    background: radial-gradient( rgba(230, 6, 6, 0.74), rgba(230, 15, 15, 0.568), rgba(224, 14, 14, 0.589)   ) ;
-    text-decoration: none;
-    border-radius: 10em;
-    color: rgb(255, 250, 243);
-    height: 2em;
-    box-shadow: none;
-    margin-top: 1.5em;
-    margin-left: 3.5em;
-    width: 8em;
-    cursor: pointer;
+.containerform{
+    margin-top: 5em;
+    /*margin-left: 43%;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.containerform label{
+    margin-left: 15px ;
+}
+.containerform input{
+    border-radius: 10px;
 }

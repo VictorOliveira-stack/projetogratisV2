@@ -1,11 +1,16 @@
-<link rel="stylesheet" href="../public/showtable.css">
+<link rel="stylesheet" href="../public/showvendas.css">
 
+<div style=" margin: 1em; margin-top: 1em; display: flex; gap:2em;">
 <div>
-    <a href="/alltables?">tables</a>
+    <a style="color: white; text-decoration: none;" href="/home">Home</a>
+</div>
+<div>
+    <a style="color: white;  text-decoration: none;" href="/alltables?">Tabelas</a>
+</div>
 </div>
 
 <form action="/inserttablevendas" method="post">
-<div >
+<div class="containerform" >
 
     <input type="hidden" name="tablesname" value="{{tablesname}}" >
 
@@ -39,13 +44,13 @@
         <div class="btnshowtables">
 
             <form  action="/updatetablevendas/{{../tablesname}}/{{this.id}}" method="get" class="btnshowtables"> <!-- ../foi importante aqui para a renderização -->
-                <input type="submit" value="edit" >
+                <input class="buttonInit2" type="submit" value="edit" >
             </form>
 
             <form action="/delettablevendas" method="post" class="btnshowtables">
                 <input type="hidden" name="tablesname" value="{{../tablesname}}"> <!-- ../ (foi crucial aqui para funcionar poois nao estava funcionando de forma alguma) -->
                 <input type="hidden" name="id" value="{{this.id}}">
-                <input type="submit" value="delet" onclick="return confirm('Are you sure you want to delete this table?');">
+                <input class="buttonInit3" type="submit" value="delet" onclick="return confirm('Are you sure you want to delete this table?');">
             </form>
         </div>
 

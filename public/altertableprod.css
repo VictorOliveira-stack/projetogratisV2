@@ -1,0 +1,18 @@
+body{
+    background: #1B2A41;
+    color: antiquewhite;
+    /* color: #4C5C68; cola de cor para usar nesse projeto tambem*/
+    /*display: flex;
+    justify-content: center; 
+    align-items: center;*/
+    min-height: 100vh;      
+    margin: 0;  
+}
+
+.divcontainer{
+    margin-left: 50%;
+}
+
+#submit{
+    background: green;
+}
